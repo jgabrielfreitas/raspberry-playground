@@ -1,34 +1,27 @@
-#define o tempo que o led ficara aceso ou apagado
-time = 2
-pin_default = 12
- 
-#Define biblioteca da GPIO
 import RPi.GPIO as GPIO
- 
-#Define biblioteca de tempo
-import time                           
+import RPi.GPIO as GPIO
+import time
+
+time_to_sleep = 2
+pin_default = 12                          
 GPIO.setmode(GPIO.BOARD)
+
+ON = 1
+OFF = 0
  
-#Define o pino 12 da placa como saida
+#Define pin 12 as output
 GPIO.setup(pin_default, GPIO.OUT)
  
-#rotina para acender o led
-def acendeled(pin_led = pin_default):
-    GPIO.output(pin_led, 1)
+def ledon(pin_led = pin_default):
+    GPIO.output(pin_led, ON)
+    return
+
+def ledoff(pin_led = pin_default):
+    GPIO.output(pin_led, OFF)
     return
  
-#rotina para apagar o led
-def apagaled(pin_led = pin_default):
-    GPIO.output(pin_led, 0)
-    return
- 
-#Inicia loop
-while(1):      
-  #Acende o led
-  acendeled()
-  #Aguarda  segundo
-  time.sleep(time)
-  #apaga o led
-  apagaled()
-  #Aguarda meio segundo e reinicia o processo
-  time.sleep(time)
+while(True):      
+  ledon()
+  time.sleep(time_to_sleep)
+  ledoff()
+  time.sleep(time_to_sleep)
